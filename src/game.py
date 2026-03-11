@@ -39,7 +39,12 @@ class Game:
 
         # Configuración de ventana
         pygame.display.set_caption(TITLE)
+        
+        # icono
+
         pygame.display.set_icon(pygame.image.load(ICON_PATH))
+        
+        
         self.screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
         pygame.mouse.set_visible(True)
 

@@ -1,11 +1,27 @@
+# settings.py
 """
 Configuraciones del juego
 """
-
+import sys
+import os
 from pathlib import Path
 
+def get_resource_path(relative_path):
+    """
+    Obtiene la ruta absoluta del recurso.
+    Funciona tanto en desarrollo como en ejecutable PyInstaller.
+    """
+    try:
+        # Cuando está compilado con PyInstaller
+        base_path = sys._MEIPASS
+    except Exception:
+        # Cuando se ejecuta como script normal
+        base_path = os.path.abspath(".")
+    
+    return os.path.join(base_path, relative_path)
+
 # Directorio base del proyecto
-BASE_DIR = Path(__file__).parent
+BASE_DIR = Path(get_resource_path("."))
 ASSETS_DIR = BASE_DIR / "assets"
 IMG_DIR = ASSETS_DIR / "img"
 SOUNDS_DIR = ASSETS_DIR / "sounds"
@@ -20,39 +36,39 @@ screen_properties = {
 # Fondos de Pantalla
 background_images = {
     "backgrounds": {
-        "background1": str(IMG_DIR / "backgrounds" / "geralt-galaxy-4799471_600x900.jpg"),
+        "background1": get_resource_path("assets/img/backgrounds/geralt-galaxy-4799471_600x900.jpg"),
     },
-    "icon": str(IMG_DIR / "games_icon.png"),
+    "icon": get_resource_path("assets/img/games_icon.png"),
 }
 
 # Musica y Sonidos
 background_music = {
-    "music": [str(SOUNDS_DIR / "bensound-prism.mp3")],
+    "music": [get_resource_path("assets/sounds/bensound-prism.mp3")],
     "sounds": {
         "player": {},
         "enemies": {},
         "environment": {},
         "shooting": {
-            "shooting_generic": str(SOUNDS_DIR / "shoot1.mp3"),
-            "energy_ball": str(SOUNDS_DIR / "energy_ball.mp3"),
+            "shooting_generic": get_resource_path("assets/sounds/shoot1.mp3"),
+            "energy_ball": get_resource_path("assets/sounds/energy_ball.mp3"),
         },
-        "explosions": str(SOUNDS_DIR / "explosion.mp3"),
+        "explosions": get_resource_path("assets/sounds/explosion.mp3"),
     },
 }
 
 # Personajes y Objetos
 game_characters = {
-    "player": str(IMG_DIR / "player" / "nave_player_64px.png"),
+    "player": get_resource_path("assets/img/player/nave_player_64px.png"),
     "enemies": [
-        str(IMG_DIR / "enemies" / "ufo1_64px.png"),
-        str(IMG_DIR / "enemies" / "ufo_64px_1.png"),
+        get_resource_path("assets/img/enemies/ufo1_64px.png"),
+        get_resource_path("assets/img/enemies/ufo_64px_1.png"),
     ],
     "bullets": {
-        "player": [str(IMG_DIR / "bullets" / "bullet_normal.png")],
-        "enemies": [str(IMG_DIR / "bullets" / "energy_ball_1.png")],
+        "player": [get_resource_path("assets/img/bullets/bullet_normal.png")],
+        "enemies": [get_resource_path("assets/img/bullets/energy_ball_1.png")],
     },
     "explosions": [
-        str(IMG_DIR / "explosions" / f"sec_boom_{i}.png")
+        get_resource_path(f"assets/img/explosions/sec_boom_{i}.png")
         for i in range(1, 8)
     ],
 }
